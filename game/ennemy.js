@@ -43,6 +43,22 @@ Ennemy.prototype.decelerate = function (distance) {
     }
 };
 
+Ennemy.prototype.turnRight = function (angle) {
+    this.direction -= angle;
+    this.graphic.rotateOnAxis(new THREE.Vector3(0,0,-1), angle);
+};
+
+Ennemy.prototype.turnLeft = function (angle) {
+    this.direction += angle;
+    this.graphic.rotateOnAxis(new THREE.Vector3(0,0,1), angle);
+};
+
+
+
+Ennemy.prototype.displayInfo = function () {
+    jQuery('#'+this.name+' >.life').text(this.life);
+}
+
 Ennemy.prototype.move = function () {
     var moveTo = new THREE.Vector3(
         this.speed * Math.cos(this.direction) + this.position.x,
@@ -66,7 +82,3 @@ Ennemy.prototype.move = function () {
     light1.position.y = this.position.y;
     light1.position.z = this.graphic.position.z + 500;
 };
-
-Ennemy.prototype.displayInfo = function () {
-    jQuery('#'+this.name+' >.life').text(this.life);
-}
