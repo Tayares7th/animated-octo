@@ -10,9 +10,11 @@ function update()
         player1.turnRight(rotateAngle);
     if (keyboard.pressed("up"))
         player1.accelerate(moveDistance);
+        ennemy1.accelerate(moveDistance);
     if (keyboard.pressed("down"))
         player1.decelerate(moveDistance);
-
+    
     player1.move();
+    ennemy1.move();
     controls.update();
 }

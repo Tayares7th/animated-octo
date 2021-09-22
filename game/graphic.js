@@ -1,7 +1,7 @@
 function init()
 {
     // set some camera attributes
-    var VIEW_ANGLE = 45,
+    var VIEW_ANGLE = 50,
         ASPECT = WIDTH / HEIGHT,
         NEAR = 0.1,
         FAR = 10000;
@@ -28,6 +28,9 @@ function init()
     player1 = new Player("player1", 0xffff00, new THREE.Vector2(50, 0), 0);
     scene.add(player1.graphic);
 
+    ennemy1 = new Ennemy("ennemy1", 0x00ffff, new THREE.Vector2(0, 100), 0);
+    scene.add(ennemy1.graphic);
+
     light1 = new Light("sun", 0xffffff, "0,0,340");
     scene.add(light1);
 }
@@ -45,8 +48,9 @@ function Ground(color, size_x, size_y, nb_tile)
     maxY = (size_y/2);
 
     for (x = minX; x <= maxX; x = x+sizeOfTileX){
+        //console.log(x);
         for (y = minY; y <= maxY; y = y+sizeOfTileY){
-
+           // console.log(y);
             color = colors[Math.floor(Math.random()*colors.length)];
        
             if (0x000000 != color)
@@ -62,15 +66,20 @@ function Ground(color, size_x, size_y, nb_tile)
                 noGround.push([x, y]);
         }
     }
+
+    noGround.forEach(elem => {
+        if ((elem[0] == 50) && (elem[1] == 0))
+            noGround.pop(elem);
+    });
 }
 
 function Light(name, color, position)
 {
-    pointLight = new THREE.PointLight(color, 50, 350);
+    pointLight = new THREE.PointLight(color, 50, position);
 
-    pointLight.position.x = position.split(',')[0];
+    /*pointLight.position.x = position.split(',')[0];
     pointLight.position.y = position.split(',')[1];
-    pointLight.position.z = position.split(',')[2];
+    pointLight.position.z = position.split(',')[2] + 500;*/
 
     return pointLight;
 }
